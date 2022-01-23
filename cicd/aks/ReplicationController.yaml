@@ -33,10 +33,4 @@ spec:
               secretKeyRef:
                 name: azdevops
                 key: AZP_POOL
-        volumeMounts:
-        - mountPath: /var/run/docker.sock
-          name: docker-volume
-      volumes:
-      - name: docker-volume
-        hostPath:
-          path: /var/run/docker.sock
+      nodeName: akswpool000000
