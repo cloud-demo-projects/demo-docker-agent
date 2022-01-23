@@ -8,3 +8,9 @@ This sample shows how to build/deploy self hosted windows & linux agents in AKS 
 - PowerShell
 - Bash
 - Azure CLI
+
+# Steps
+- Local image(windows & linux) build & run to power on AzureDevOps agent
+- Deploy infrastructure(AKS) to host agents
+- Configure CICD 
+- Deploy agent images into AKS
