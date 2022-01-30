@@ -9,17 +9,17 @@ This sample shows how to build/deploy self hosted agents in AKS with Azure DevOp
 - CICD
 
 # Prerequisites
-- Vault CLI
+- Vault unsealed local setup(includes Vault CLI & UI) with in memory storage
+- Docker Desktop/Docker CE
+- Azure CLI
+- Azure DevOps Account
 - Helm
 - Jq
-- Azure DevOps Account
-- Docker Desktop/Docker CE
 - PowerShell
 - Git Bash
-- Azure CLI
 
 # Steps
-- Local image(windows & linux) build & run to power on AzureDevOps agent
+- Local image(windows & linux) build & run to power AzureDevOps agent
 - Deploy infrastructure(AKS) to host agents
-- Configure CICD 
+- Configure CICD to deploy agent containers on AKS 
 - Deploy agent images into AKS
