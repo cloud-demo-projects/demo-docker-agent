@@ -9,10 +9,13 @@ This sample shows how to build/deploy self hosted agents in AKS with Azure DevOp
 - CICD
 
 # Prerequisites
+- Vault CLI
+- Helm
+- Jq
 - Azure DevOps Account
 - Docker Desktop/Docker CE
 - PowerShell
-- Bash
+- Git Bash
 - Azure CLI
 
 # Steps
