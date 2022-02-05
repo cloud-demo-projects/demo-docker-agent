@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: kubepodcreation
-        image: testacr9.azurecr.io/dockeragent:latest
+        image: testacr9.azurecr.io/linux-dockeragent:latest
         env:
           - name: AZP_URL
             valueFrom:
@@ -33,4 +33,4 @@ spec:
               secretKeyRef:
                 name: azdevops
                 key: AZP_POOL
-      nodeName: akswpool000000
+      nodeName: aks-agentpool-32132794-vmss000000
