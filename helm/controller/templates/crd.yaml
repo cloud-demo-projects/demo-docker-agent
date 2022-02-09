@@ -38,14 +38,3 @@ spec:
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
     - ct
-
-
----
-apiVersion: "stable.example.com/v1"
-kind: CronTab
-metadata:
-  name: my-new-cron-object
-spec:
-  cronSpec: "* * * * */5"
-  image: my-awesome-cron-image
-  replicas: 1
