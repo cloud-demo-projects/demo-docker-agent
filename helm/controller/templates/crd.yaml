@@ -1,40 +1,144 @@
+{{- if and .Values.enabled .Values.crd.create }}
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
+  namespace: {{ .Values.namespace.name }}
   # name must match the spec fields below, and be in the form: <plural>.<group>
-  name: crontabs.stable.example.com
+  name: agents.{{ .Values.crd.group }}
 spec:
   # group name to use for REST API: /apis/<group>/<version>
-  group: stable.example.com
+  group: {{ .Values.crd.group  }}
   # list of versions supported by this CustomResourceDefinition
   versions:
-    - name: v1
+    - name: {{ .Values.crd.version }}
       # Each version can be enabled/disabled by Served flag.
       served: true
       # One and only one version must be marked as the storage version.
       storage: true
       schema:
+        #This should be the spec
+        # https://github.com/kubernetes-client/python/blob/master/kubernetes/docs/V1PodSpec.md
         openAPIV3Schema:
           type: object
           properties:
+            apiVersion:
+              description: 'APIVersion defines the versioned schema of this representation
+                of an object. Servers should convert recognized schemas to the latest
+                internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              type: string
+            kind:
+              description: 'Kind is a string value representing the REST resource this
+                object represents. Servers may infer this from the endpoint the client
+                submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              type: string
+            metadata:
+              type: object
             spec:
               type: object
               properties:
-                cronSpec:
-                  type: string
-                image:
-                  type: string
-                replicas:
-                  type: integer
+                # This is specific to the ado implementation. 
+                # there is a need for adition values to be used
+                ado:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  required:
+                    - prefix
+                # https://github.com/kubernetes-client/python/blob/master/kubernetes/docs/V1PodSpec.md
+                pod:
+                  type: object
+                  properties:
+                    template:
+                      type: object
+                      properties:
+                        metadata:
+                          type: object
+                          properties:
+                            annotations:
+                              type: object
+                              additionalProperties:
+                                type: string
+                        spec:
+                          type: object
+                          properties:
+                            #https://github.com/kubernetes-client/python/blob/master/kubernetes/docs/V1Container.md
+                            containers:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  image:
+                                    type: string
+                                  image_pull_policy:
+                                    type: string
+                                  securityContext:
+                                    type: object
+                                    additionalProperties:
+                                      type: string
+                                  #https://github.com/kubernetes-client/python/blob/master/kubernetes/docs/V1ResourceRequirements.md
+                                  resources:
+                                    type: object
+                                    properties:
+                                      limits:
+                                        type: object
+                                        properties:
+                                          cpu:
+                                            type: string
+                                          memory:
+                                            type: string
+                                      requests:
+                                        type: object
+                                        properties:
+                                          cpu:
+                                            type: string
+                                          memory:
+                                            type: string
+
+
+                                required:
+                                  - name
+                                  - image
+                            serviceAccountName:
+                              type: string
+                            tolerations:
+                              type: object
+                              additionalProperties:
+                                type: string
+                            podAnnotations:
+                              type: object
+                              additionalProperties:
+                                type: string
+                            podSecurityContext:
+                              type: object
+                              additionalProperties:
+                                type: string
+                            nodeSelector:
+                              type: object
+                              additionalProperties:
+                                type: string
+
+                          required:
+                            - containers
+                      required:
+                        - spec
+                  required:
+                    - template
+              required:
+                - pod
+                - ado
+            
   # either Namespaced or Cluster
   scope: Namespaced
   names:
     # plural name to be used in the URL: /apis/<group>/<version>/<plural>
-    plural: crontabs
+    plural: agents
     # singular name to be used as an alias on the CLI and for display
-    singular: crontab
+    singular: agent
     # kind is normally the CamelCased singular type. Your resource manifests use this.
-    kind: CronTab
+    kind: AgentSpec
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
-    - ct
+    - ag
+{{- end }}
