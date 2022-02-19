@@ -5,7 +5,7 @@ metadata:
   labels:
     app: azdevops-agent
 spec:
-  replicas: 1 #here is the configuration for the actual agent always running
+  replicas: 7
   selector:
     matchLabels:
       app: azdevops-agent
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: kubepodcreation
-        image: bahrinipun/linux-dockeragent:latest
+        image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
         env:
           - name: AZP_URL
             valueFrom:
