@@ -1,21 +1,24 @@
 
 # Running a Self Hosted Agent(Windows & Linux) in AKS
-This sample shows how to build/deploy self hosted agents in AKS with Azure DevOps including-
+This sample intends to show how to build/deploy self hosted agents in AKS with Azure DevOps including-
 - Linux & Windows Agents Dockerfiles & Necessary Scripts
-- .Net(6.0) Application with C# & Kubernetes C# Client
+- .Net(6.0) Application with C# & Kubernetes C# Client for dynamic agent spinup
 - Hashicorp Vault for Secrets
 - IaC
 - CICD
 
 # Prerequisites
+Prerequisites are listed down for local development
+
+## Local Devlopment
 - Vault unsealed local setup(includes Vault CLI & UI) with in memory storage
-- Docker Desktop/Docker CE
+- Docker Desktop
 - Azure CLI
-- Azure DevOps Account
 - Helm
 - Jq
 - PowerShell
 - Git Bash
+- Azure DevOps Account
 
 # Steps
 - Local image(windows & linux) build & run to power AzureDevOps agent
